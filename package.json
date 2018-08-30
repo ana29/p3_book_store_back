@@ -1,0 +1,22 @@
+{
+  "name": "p3_book_strore_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "no",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ana29/p3_book_strore_back.git"
+  },
+  "author": "Ana Godoy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ana29/p3_book_strore_back/issues"
+  },
+  "homepage": "https://github.com/ana29/p3_book_strore_back#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
