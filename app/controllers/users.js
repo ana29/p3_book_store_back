@@ -56,7 +56,7 @@ module.exports = function (app) {
   controller.deleteUserById = (req, res) => {
     console.log('API: deleteUserById');
     let _id = req.params.id;
-    Usuario.remove(_id).exec()
+    User.findById(_id).remove().exec()
       .then(
         function () {
           res.end();

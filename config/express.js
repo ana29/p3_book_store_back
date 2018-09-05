@@ -1,6 +1,6 @@
 var express = require('express');
 var consign = require('consign');
-var logger = require('morgan');
+var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
@@ -14,6 +14,7 @@ module.exports = function () {
   app.use(bodyParser.json());
   app.use(methodOverride());
 
+  app.use(morgan('combined'));
 
   consign({ cwd: 'app' })
     .include('models')
