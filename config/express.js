@@ -1,5 +1,6 @@
 var express = require('express');
 var consign = require('consign');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
