@@ -1,9 +1,9 @@
 var express = require('express');
 var consign = require('consign');
 var morgan = require('morgan');
+const path = require('path');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-
 
 module.exports = function () {
   var app = express();
@@ -16,12 +16,11 @@ module.exports = function () {
 
   app.use(morgan('combined'));
 
-  consign({ cwd: 'app' })
+  consign({ cwd: path.join(__dirname, '../app') })
     .include('models')
     .then('controllers')
     .then('routes')
     .into(app);
-
 
   return app;
 };
