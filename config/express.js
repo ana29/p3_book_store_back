@@ -2,25 +2,28 @@ var express = require('express');
 var consign = require('consign');
 var morgan = require('morgan');
 const path = require('path');
+var cors = require('cors')
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 module.exports = function () {
-  var app = express();
-  app.set('port',(process.env.PORT || 3000));
-  app.use(express.static('./public'));
+    var app = express();
 
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
-  app.use(methodOverride());
+    app.set('port', (process.env.PORT || 3000));
+    app.use(cors());
+    app.use(express.static('./public'));
 
-  app.use(morgan('combined'));
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    app.use(methodOverride());
 
-  consign({ cwd: path.join(__dirname, '../app') })
-    .include('models')
-    .then('controllers')
-    .then('routes')
-    .into(app);
+    app.use(morgan('combined'));
 
-  return app;
+    consign({cwd: path.join(__dirname, '../app')})
+        .include('models')
+        .then('controllers')
+        .then('routes')
+        .into(app);
+
+    return app;
 };
