@@ -1,5 +1,5 @@
 var http = require('http');
-var morgan = require('morgan')
+var morgan = require('morgan');
 var app = require('./config/express')();
 
 require('./config/database.js')('mongodb://localhost:27017/p3');

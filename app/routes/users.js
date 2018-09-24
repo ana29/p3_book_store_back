@@ -14,4 +14,5 @@ module.exports = function (app) {
         .get(controller.getUserById)
         .delete(controller.deleteUserById);
 
+
 }
