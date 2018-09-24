@@ -7,7 +7,7 @@ var methodOverride = require('method-override');
 
 module.exports = function () {
   var app = express();
-  app.set('port', 3000);
+  app.set('port',(process.env.PORT || 3000));
   app.use(express.static('./public'));
 
   app.use(bodyParser.urlencoded({ extended: true }));
