@@ -1,19 +1,11 @@
-const express = require('express')
-const app = express()
+var http = require('http');
+var morgan = require('morgan');
+var app = require('./config/express')();
 
-app.get('/', (req, res) => res.send('Hello World!'))
+require('./config/database.js')('mongodb://localhost:27017/p3');
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-app.post('/', function (req, res) {
-  res.send('Got a POST request')
-})
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user')
-})
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user')
-})
+http.createServer(app).listen(app.get('port'), function () {
+  console.log('Server listening on port ' +
+    app.get('port'));
+});
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
