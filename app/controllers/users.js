@@ -6,9 +6,12 @@ module.exports = function (app) {
 
   controller.saveUser = (req, res) => {
     console.log('API: saveUser');
-    var user = new User(req.body);
 
-    user.save(function (erro, user) {
+      var user = new User(req.body);
+      var _password = req.body.password;
+      user.password = bcrypt.hashSync(_password, bcrypt.genSaltSync(8), null);
+
+      user.save(function (erro, user) {
       if (erro) {
         res.status(500).json(erro).end();
         console.log(erro);
@@ -68,4 +71,4 @@ module.exports = function (app) {
   };
   return controller;
 
-}
+};
