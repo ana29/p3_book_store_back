@@ -24,6 +24,7 @@ module.exports = function (app) {
   };
 
 
+
   controller.getUsers = function (req, res) {
     console.log('API: getUsers');
     User.find().exec().then(

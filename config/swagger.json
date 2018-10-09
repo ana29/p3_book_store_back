@@ -87,7 +87,7 @@
         }
       }
     },
-    "/user/{userId}": {
+    "/users/{userId}": {
       "get": {
         "tags": [
           "User"
