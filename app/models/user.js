@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var validate = require('mongoose-validator')
+var validate = require('mongoose-validator');
+var bcrypt = require('bcrypt');
 
 var passwordValidator = [
     validate({
@@ -23,44 +24,45 @@ var phoneValidator = [
 ];
 var ageValidator = [
     validate({
-        validator: function(val) {
-            return (val>=16);
+        validator: function (val) {
+            return (val >= 16);
         },
         message: 'The minimum age is 16 years',
     })
 ];
 
+var schema = mongoose.Schema({
+    name: {
+        type: String,
+        lowercase: true,
+        required: true
+    },
+    password: {
+        type: String,
+        validate: passwordValidator,
+        required: true
+    },
+    age: {
+        type: Number,
+        validate: ageValidator,
+        required: true
+    },
+
+    phone: {
+        type: String,
+        validate: phoneValidator,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        validate: emailValidator,
+        unique: true
+    }
+
+});
+
 module.exports = function () {
-    var schema = mongoose.Schema({
-        name: {
-            type: String,
-            lowercase: true,
-            required: true
-        },
-        password: {
-            type: String,
-            validate: passwordValidator,
-            required: true
-        },
-        age: {
-            type: Number,
-            validate: ageValidator,
-            required: true
-        },
-        contact: {
-            phone: {
-                type: String,
-                validate: phoneValidator,
-                required: true
-            },
-            email: {
-                type: String,
-                required: true,
-                validate: emailValidator,
-                unique: true
-            }
-        }
-    });
 
     return mongoose.model('User', schema);
 
