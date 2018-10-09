@@ -111,38 +111,6 @@
           }
         }
       },
-      "put": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Update user with give ID",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "ID of user that we want to find",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "user",
-            "description": "User with new values of properties",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User is updated",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        }
-      },
       "delete": {
         "tags": [
           "User"
@@ -167,35 +135,98 @@
         }
       }
     },
-    "/auth": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get all Books in system",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "401": {
+            "description": "Unauthorized: "
+          }
+        }
+      },
       "post": {
         "tags": [
-          "Auth"
+          "Book"
         ],
-        "summary": "Attempt to log use in system",
+        "summary": "Create new Book in system",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
             "in": "body",
-            "name": "user",
-            "description": "User that we want to login with",
+            "name": "book",
+            "description": "Book that we want to create",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/Auth"
+              "$ref": "#/definitions/Book"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "User token generated",
+          "201": {
+            "description": "New Book is created",
             "schema": {
-              "$ref": "#/definitions/Token"
+              "$ref": "#/definitions/Book"
             }
-          },
-          "401": {
-            "description": "Invalid user e-mail or password"
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get Book with given ID",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of Book that we want to find",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book is found",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Delete Book with given ID",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of Book that we want to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
           }
         }
       }
@@ -235,35 +266,43 @@
         "email": "user@user.com"
       }
     },
-    "Auth": {
+    "Book": {
       "required": [
-        "email",
-        "password"
+        "name",
+        "isbn",
+        "price"
       ],
       "properties": {
-        "email": {
+        "name": {
           "type": "string"
         },
-        "password": {
+        "print_length": {
           "type": "string"
+        },
+        "isbn": {
+          "type": "number"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "quantity": {
+          "type": "number"
         }
       },
       "example": {
-        "email": "user@email.com",
-        "password": "userPassword"
-      }
-    },
-    "Token": {
-      "required": [
-        "x-access-token"
-      ],
-      "properties": {
-        "x-access-token": {
-          "type": "string"
-        }
-      },
-      "example": {
-        "x-access-token": "eyJhbGciI1NiIsInR5cC.eyJlbWFpbTc2MTEzfQ.jJhI2hgPM4ZV--mSB9tHSY"
+        "name": "1984",
+        "print_length": "237 pages",
+        "isbn": 90909090909,
+        "publisher": "Houghton Mifflin Harcourt (October 17, 1983)",
+        "language": "English",
+        "price": 30,
+        "quantity": 2
       }
     }
   }
