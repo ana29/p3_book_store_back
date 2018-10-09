@@ -61,9 +61,15 @@ var schema = mongoose.Schema({
     }
 
 });
-
 module.exports = function () {
 
+    schema.methods.encryptPassword = function(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    };
+
+    schema.methods.validPassword = function(password) {
+        return bcrypt.compareSync(password, this.password);
+    };
     return mongoose.model('User', schema);
 
 };

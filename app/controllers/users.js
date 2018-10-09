@@ -5,36 +5,30 @@ module.exports = function (app) {
   var controller = {};
 
   controller.saveUser = (req, res) => {
-    console.log('API: saveUser');
 
       var user = new User(req.body);
       var _password = req.body.password;
-      user.password = bcrypt.hashSync(_password, bcrypt.genSaltSync(8), null);
+      user.password = user.encryptPassword(_password);
 
       user.save(function (erro, user) {
       if (erro) {
         res.status(500).json(erro).end();
-        console.log(erro);
+
       } else {
         res.json(user);
         res.status(201);
-        console.log(201);
       }
     });
   };
 
 
-
   controller.getUsers = function (req, res) {
-    console.log('API: getUsers');
     User.find().exec().then(
       function (user) {
         res.json(user);
         res.status(201);
-        console.log(201);
       },
       function (erro) {
-        console.error(erro);
         res.status(500).json(erro);
       }
     );
@@ -42,7 +36,6 @@ module.exports = function (app) {
 
 
   controller.getUserById = function (req, res) {
-    console.log('API: getUserById');
     var _id = req.params.id;
     User.findById(_id).exec()
       .then(
@@ -51,14 +44,12 @@ module.exports = function (app) {
           res.json(user)
         },
         function (erro) {
-          console.log(erro);
           res.status(404).json(erro)
         }
       );
   };
 
   controller.deleteUserById = (req, res) => {
-    console.log('API: deleteUserById');
     let _id = req.params.id;
     User.findById(_id).remove().exec()
       .then(

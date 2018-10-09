@@ -15,15 +15,10 @@ const PORT = process.env.PORT || 3000;
 
 module.exports = function () {
     require('./passport')(passport);
-
     var app = express();
 
-    // Passport
-    app.use(session({ secret: 'passport', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
-    app.use(passport.initialize());
-    app.use(passport.session());
-
     app.set('port', PORT);
+
     //Static Files
     app.use(express.static('./public'));
 
@@ -55,19 +50,6 @@ module.exports = function () {
     app.get('/', (req, res) => {
         res.send('42 ')
     });
-
-    // Session Secutiry
-    app.use(session({
-        store: new MongoStore({
-            mongooseConnection: mongoose.connection,
-            ttl: 60 * 60 // = 60 minutos de sessão
-        }),
-        secret: process.env.SESSION_SECRET || 'local-secret',
-        resave: false,
-        saveUninitialized: false
-    }));
-    app.use(passport.initialize());
-    app.use(passport.session());
 
 
     return app;

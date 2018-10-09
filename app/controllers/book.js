@@ -3,7 +3,6 @@ module.exports = function (app) {
     var controller = {};
 
     controller.saveBook = (req, res) => {
-        console.log('API: saveBook');
         var book = new Book(req.body);
 
         book.save(function (erro, book) {
@@ -20,7 +19,6 @@ module.exports = function (app) {
 
 
     controller.getBooks = function (req, res) {
-        console.log('API: getBooks');
         Book.find().exec().then(
             function (book) {
                 res.json(book);
@@ -36,7 +34,6 @@ module.exports = function (app) {
 
 
     controller.getBookById = function (req, res) {
-        console.log('API: getBookById');
         var _id = req.params.id;
         Book.findById(_id).exec()
             .then(
@@ -52,7 +49,6 @@ module.exports = function (app) {
     };
 
     controller.deleteBookById = (req, res) => {
-        console.log('API: deleteBookById');
         let _id = req.params.id;
         Book.findById(_id).remove().exec()
             .then(
